@@ -18,7 +18,6 @@ export default function App() {
   ]);
 
   function updatePost(e) {
-    console.log(post);
     const { name, value } = e.target;
 
     setPost((prev) => {
@@ -53,8 +52,8 @@ export default function App() {
       });
 
       if (response.ok) {
-        const blob = await response.blob();
-        const ogImageUrl = URL.createObjectURL(blob);
+        const ans = await response.json();
+        const ogImageUrl = ans.imageUrl;
 
         const metaTag = document.createElement("meta");
         metaTag.setAttribute("property", "og:image");

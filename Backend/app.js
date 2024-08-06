@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const puppeteer = require('puppeteer');
+const path = require('path');
+const fs = require('fs');
 const app = express();
 const port = 3000;
 
@@ -8,9 +10,9 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/generate-og-image', async (req, res) => {
-  const { title, content} = req.body;
+    const { title, content } = req.body;
 
-  const html = `
+    const html = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -64,18 +66,24 @@ app.post('/generate-og-image', async (req, res) => {
     </html>
   `;
 
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setContent(html);
-  await page.setViewport({ width: 1200, height: 630 });
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setContent(html);
+    await page.setViewport({ width: 1200, height: 630 });
 
-  const imageBuffer = await page.screenshot();
-  await browser.close();
+    const imageBuffer = await page.screenshot();
+    await browser.close();
 
-  res.setHeader('Content-Type', 'image/png');
-  res.send(imageBuffer);
+    const imageName = `og-image-${Date.now()}.png`;
+    const imagePath = path.join(__dirname, 'public', 'images', imageName);
+    fs.writeFileSync(imagePath, imageBuffer);
+
+    const imageUrl = `http://localhost:${port}/images/${imageName}`;
+    res.json({ imageUrl });
 });
 
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
