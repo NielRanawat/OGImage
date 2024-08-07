@@ -6,11 +6,7 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-app.use(cors({
-    origin: ['http://localhost:5173', 'https://ogimage-7a7c.onrender.com'],
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
-}));
+app.use(cors());
 app.use(express.json());
 
 app.post('/generate-og-image', async (req, res) => {
