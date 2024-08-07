@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
+const chromium = require('chromium');
 const path = require('path');
 const fs = require('fs');
 const app = express();
@@ -70,7 +71,10 @@ app.post('/generate-og-image', async (req, res) => {
     </html>
   `;
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        executablePath: chromium.path,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
     await page.setContent(html);
     await page.setViewport({ width: 1200, height: 630 });

@@ -1,18 +1,33 @@
 {
-  "name": "medialbackend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "fs": "^0.0.1-security",
-    "path": "^0.12.7",
-    "puppeteer": "^22.15.0"
+    "name": "medialfrontend",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+      "preview": "vite preview",
+      "postinstall": "npm install puppeteer-core && npm install chromium"
+    },
+    "dependencies": {
+      "react": "^18.3.1",
+      "react-dom": "^18.3.1",
+      "puppeteer-core": "^20.0.0",
+      "chromium": "^1.0.0"
+    },
+    "devDependencies": {
+      "@types/react": "^18.3.3",
+      "@types/react-dom": "^18.3.0",
+      "@vitejs/plugin-react": "^4.3.1",
+      "autoprefixer": "^10.4.20",
+      "eslint": "^8.57.0",
+      "eslint-plugin-react": "^7.34.3",
+      "eslint-plugin-react-hooks": "^4.6.2",
+      "eslint-plugin-react-refresh": "^0.4.7",
+      "postcss": "^8.4.40",
+      "tailwindcss": "^3.4.7",
+      "vite": "^5.3.4"
+    }
   }
-}
+  
