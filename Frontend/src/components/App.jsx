@@ -44,7 +44,6 @@ export default function App() {
         "https://ogimage-bakcend.onrender.com/generate-og-image",
         {
           method: "POST",
-          mode: 'no-cors',
           headers: {
             "Content-Type": "application/json",
           },
