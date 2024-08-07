@@ -8,9 +8,9 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://ogimage-7a7c.onrender.com'],
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
+  origin: 'https://ogimage-7a7c.onrender.com',
+  methods: ['GET', 'POST', 'OPTIONS'], // Include OPTIONS for preflight
+  allowedHeaders: ['Content-Type']
 }));
 app.use(express.json());
 
