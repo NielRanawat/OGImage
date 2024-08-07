@@ -1,17 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const puppeteer = require('puppeteer-core');
-const chromium = require('chromium');
+const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
 const app = express();
 const port = 3000;
 
-app.use(cors({
-  origin: 'https://ogimage-7a7c.onrender.com',
-  methods: ['GET', 'POST', 'OPTIONS'], // Include OPTIONS for preflight
-  allowedHeaders: ['Content-Type']
-}));
+app.use(cors());
 app.use(express.json());
 
 app.post('/generate-og-image', async (req, res) => {
@@ -71,10 +66,7 @@ app.post('/generate-og-image', async (req, res) => {
     </html>
   `;
 
-    const browser = await puppeteer.launch({
-        executablePath: chromium.path,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setContent(html);
     await page.setViewport({ width: 1200, height: 630 });
