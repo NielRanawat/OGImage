@@ -39,16 +39,19 @@ export default function App() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/generate-og-image", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: post.title,
-          content: post.content,
-        }),
-      });
+      const response = await fetch(
+        "https://og-image-backend-5teg.onrender.com/generate-og-image",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: post.title,
+            content: post.content,
+          }),
+        }
+      );
 
       if (response.ok) {
         const ans = await response.json();
