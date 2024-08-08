@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import React, { useState } from "react";
 import Form from "./Form";
 import Posts from "./Posts";
@@ -40,24 +39,21 @@ export default function App() {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "https://ogimage-bakcend.onrender.com/generate-og-image",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: post.title,
-            content: post.content,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:3000/generate-og-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: post.title,
+          content: post.content,
+        }),
+      });
 
       if (response.ok) {
         const ans = await response.json();
         const ogImageUrl = ans.imageUrl;
-
+        console.log(ogImageUrl);
         const metaTag = document.createElement("meta");
         metaTag.setAttribute("property", "og:image");
         metaTag.setAttribute("content", ogImageUrl);
